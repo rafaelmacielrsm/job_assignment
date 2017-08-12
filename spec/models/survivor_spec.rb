@@ -8,6 +8,8 @@ RSpec.describe Survivor, type: :model do
   it { expect( subject ).to respond_to(:gender) }
   it { expect( subject ).to respond_to(:longitude) }
   it { expect( subject ).to respond_to(:latitude) }
+  it { expect( subject ).to respond_to(:items) }
+  it { expect( subject ).to respond_to(:inventory) }  
 
   describe '#last_location' do
     let(:coord_array) { [subject.latitude, subject.longitude] }
@@ -31,5 +33,9 @@ RSpec.describe Survivor, type: :model do
     it{ expect(subject).to validate_presence_of :longitude }
     it{ expect(subject).to validate_numericality_of(:longitude).
       is_greater_than_or_equal_to(-180).is_less_than_or_equal_to(180)}
+  end
+
+  describe 'associations' do
+    it {expect(subject).to have_many(:items)}
   end
 end
