@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     defaults: { format: :json },
     constraints: {subdomain: 'api'},
     path: '/' do
-      resource :survivor, only: [:create]
+      resource :survivor, only: [:create, :update]
   end
 end

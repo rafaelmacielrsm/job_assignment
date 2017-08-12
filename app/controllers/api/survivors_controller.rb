@@ -15,9 +15,25 @@ class Api::SurvivorsController < ApplicationController
     end
   end
 
+  # PATCH/PUT api.domain_name/survivor/:id
+  def update
+    survivor = Survivor.find_by_id(params[:id])
+    if survivor.update(location_params)
+      render json: survivor, status: :ok
+    else
+      render json: {
+        errors: survivor.errors}.to_json,
+        status: :unprocessable_entity
+    end
+  end
+
   private
   def survivor_params
     permitted_params = params.require(:survivor).
       permit(:name, :age, :gender, :latitude, :longitude, inventory: {})
+  end
+
+  def location_params
+    params.require(:survivor).permit([:latitude, :longitude])
   end
 end
