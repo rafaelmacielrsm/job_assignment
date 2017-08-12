@@ -9,17 +9,7 @@ RSpec.describe Survivor, type: :model do
   it { expect( subject ).to respond_to(:longitude) }
   it { expect( subject ).to respond_to(:latitude) }
   it { expect( subject ).to respond_to(:items) }
-  it { expect( subject ).to respond_to(:inventory) }  
-
-  describe '#last_location' do
-    let(:coord_array) { [subject.latitude, subject.longitude] }
-
-    it { expect( subject ).to respond_to :last_location }
-
-    it "should return an array containing latitude and longitude" do
-      expect(subject.last_location).to eq(coord_array)
-    end
-  end
+  it { expect( subject ).to respond_to(:inventory) }
 
   describe 'validations' do
     it{ expect(subject).to validate_presence_of :name }
@@ -37,5 +27,25 @@ RSpec.describe Survivor, type: :model do
 
   describe 'associations' do
     it {expect(subject).to have_many(:items)}
+  end
+
+# Defined method
+  describe '#last_location' do
+    let(:coord_array) { [subject.latitude, subject.longitude] }
+
+    it { expect( subject ).to respond_to :last_location }
+
+    it "should return an array containing latitude and longitude" do
+      expect(subject.last_location).to eq(coord_array)
+    end
+  end
+
+  describe '#update_location!' do
+    let(:new_latitude) { FFaker::Geolocation.lat.to_s }
+    let(:new_longitude) { FFaker::Geolocation.lng.to_s }
+    let(:coord_array) { [new_latitude, new_longitude] }
+
+    it { expect{subject.update_location!(coord_array)}.
+      to change(subject, :latitude).and change(subject, :longitude)}
   end
 end

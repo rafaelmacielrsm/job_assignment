@@ -8,8 +8,6 @@ class Survivor < ApplicationRecord
   validates :longitude, presence: true,
     numericality: {greater_than_or_equal_to: -180, less_than_or_equal_to: 180}
 
-  enum enum_items: {water: 4, food: 3, medication: 2, ammunition: 1 }
-
   # Associations
   has_many :items
 
@@ -21,5 +19,15 @@ class Survivor < ApplicationRecord
 
   def last_location
     [self.latitude, self.longitude]
+  end
+
+  # update_location method
+  # => Updates both latitude and longitude of a survivor
+  # Args:
+  # => new_location_array: Contain the latitude and longitude respectively
+  def update_location!(new_location_array)
+    self.update(
+      latitude: new_location_array[0],
+      longitude: new_location_array[1])
   end
 end
