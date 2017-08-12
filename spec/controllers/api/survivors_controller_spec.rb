@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared_examples/a_not_findable_record'
 
 RSpec.describe Api::SurvivorsController, type: :controller do
   describe 'POST #create' do
@@ -67,7 +68,13 @@ RSpec.describe Api::SurvivorsController, type: :controller do
       it 'should return a json with the error explanation' do
         expect(json_errors_member[:latitude].first).to include("less than")
       end
+    end
 
+    include_examples 'a not findable record' do
+      let(:new_location) { {latitude: "200", longitude: "200"} }
+      before do
+        patch :update, params: {id: survivor.id + 10, survivor: new_location}
+      end
     end
   end
 end
