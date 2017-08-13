@@ -1,0 +1,2 @@
+class InfectionReportsController < ApplicationController
+end

@@ -11,6 +11,15 @@ class Survivor < ApplicationRecord
   # Associations
   has_many :items
 
+  has_many :submitted_reports,
+    class_name: 'InfectionReport', foreign_key: 'survivor_id', dependent: :destroy
+  has_many :reported_survivors,
+    through: :submitted_reports, source: :reported_survivor
+
+  has_many :received_reports,
+    class_name: 'InfectionReport', foreign_key: "infected_id", dependent: :destroy
+  has_many :reported_by, through: :received_reports, source: :survivor
+
   attr_accessor :inventory
 
   def inventory
