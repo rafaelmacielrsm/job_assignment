@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'shared_examples/a_not_findable_record'
 
 RSpec.describe Api::SurvivorsController, type: :controller do
+  before { set_default_headers }
+
   describe 'POST #create' do
     context 'when there are no errors in the request params' do
       let(:survivor_attr) { FactoryGirl.attributes_for :survivor }
@@ -60,7 +62,7 @@ RSpec.describe Api::SurvivorsController, type: :controller do
     context 'when the location is invalid' do
       let(:new_location) { {latitude: "200", longitude: "200"} }
 
-      before {patch :update, params: {id: survivor.id, survivor: new_location} }
+      before {put :update, params: {id: survivor.id, survivor: new_location} }
 
       it { expect(response).to have_http_status :unprocessable_entity }
       it { expect(json_response).to have_key(:errors)}
@@ -70,10 +72,10 @@ RSpec.describe Api::SurvivorsController, type: :controller do
       end
     end
 
-    include_examples 'a not findable record' do
+    it_behaves_like 'a not findable record' do
       let(:new_location) { {latitude: "200", longitude: "200"} }
       before do
-        patch :update, params: {id: survivor.id + 10, survivor: new_location}
+        put :update, params: {id: survivor.id + 10, survivor: new_location}
       end
     end
   end
