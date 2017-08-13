@@ -1,5 +1,5 @@
 class Api::SurvivorsController
-  # This class manager the inventory list logic
+  # This class manages the inventory list logic
   class InventoryList
     # build_inventory method
     # => Encapsulates the inventory building process with the received parameter
