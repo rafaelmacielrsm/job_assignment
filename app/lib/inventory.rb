@@ -17,4 +17,8 @@ class Inventory
   def self.lookup(id)
     ITEM_AND_VALUES.select {|k,v| v[:id] == id}.keys.first
   end
+
+  def self.evaluate_items(items)
+    items.map{ |k,v| Inventory.items_and_values[k][:value] * v || 0 }.reduce(:+)
+  end
 end
