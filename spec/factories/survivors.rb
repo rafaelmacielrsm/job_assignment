@@ -6,5 +6,6 @@ FactoryGirl.define do
     longitude { FFaker::Geolocation.lng.to_s }
     latitude { FFaker::Geolocation.lat.to_s }
     infected false
+    inventory {}
   end
 end
