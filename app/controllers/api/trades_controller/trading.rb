@@ -1,8 +1,12 @@
 class Api::TradesController
   # This class deals with the trading logic
 
-  class Trading
-    attr_accessor :errors
+  class Trading < ActiveModelSerializers::Model
+    # alias :read_attribute_for_serialization :send
+    # def self.model_name
+    #   @_model_name ||= ActiveModel::Name.new(self)
+    # end
+    attr_accessor :errors, :offer, :for
 
     # initialize
     # => Args:
@@ -142,7 +146,7 @@ class Api::TradesController
         [x.item_name.to_sym ,x.quantity]}.to_h
 
       @offer[:items].each do |item, quantity|
-        if quantity > max_avaliable_quantity[item]
+        if quantity > max_avaliable_quantity[item.to_sym]
           is_valid = false
           add_error(:offer, :items, {item.to_sym =>
             "Not enough items, only #{max_avaliable_quantity[item]} available"})
@@ -153,7 +157,7 @@ class Api::TradesController
         [x.item_name.to_sym ,x.quantity]}.to_h
 
       @for[:items].each do |item, quantity|
-        if quantity > max_avaliable_quantity[item]
+        if quantity > max_avaliable_quantity[item.to_sym]
           is_valid = false
           add_error(:for, :items, {item.to_sym =>
             "Not enough items, only #{max_avaliable_quantity[item]} available"})
@@ -169,7 +173,7 @@ class Api::TradesController
       for_value = Inventory.evaluate_items(@for[:items])
       if offer_value != for_value
         add_error(:for, :items,
-          "Invalid Offer, the items are not worth the same")
+          "Invalid Offer, the items offered and received do not worth the same")
         true
       else false; end
     end

@@ -19,6 +19,6 @@ class Inventory
   end
 
   def self.evaluate_items(items)
-    items.map{ |k,v| Inventory.items_and_values[k][:value] * v || 0 }.reduce(:+)
+    items.map{ |k,v| Inventory.items_and_values[k.to_sym][:value] * v || 0 }.reduce(:+)
   end
 end
