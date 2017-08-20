@@ -9,8 +9,8 @@ RSpec.describe Api::InfectionReportsController, type: :controller do
   describe 'POST #create' do
     context 'when all params are correct' do
       let(:params_hash) do
-        { infection_report: {
-          survivor_id: survivor_1.id, infected_id: survivor_2.id }}
+        { survivor_id: survivor_1.id,
+          infection_report: { infected_id: survivor_2.id} }
         end
 
         before { post :create, params: params_hash }
@@ -21,11 +21,10 @@ RSpec.describe Api::InfectionReportsController, type: :controller do
     end
 
     context 'when the request has errors' do
-      let(:params_hash) { {
-          infection_report: {
-            survivor_id: survivor_1.id, infected_id: survivor_1.id
-          }
-      }}
+      let(:params_hash) do {
+            survivor_id: survivor_1.id,
+            infection_report: { infected_id: survivor_1.id}}
+      end
 
       before { post :create, params: params_hash }
 
@@ -41,10 +40,8 @@ RSpec.describe Api::InfectionReportsController, type: :controller do
     context "when a survivor is reported three times" do
       let(:create_request) do
         post :create, params: {
-          infection_report: {
             survivor_id: survivor_2.id,
-            infected_id: survivor_1.id
-          }
+            infection_report: { infected_id: survivor_1.id}
         }
       end
 
