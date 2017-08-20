@@ -19,10 +19,10 @@ RSpec.describe Api::TradesController, type: :controller do
         create_items( survivor_1, inventory_1 )
         create_items( survivor_2, inventory_2 )
 
-        post :create, params: { trade: {
-          offer: {survivor_id: survivor_1.id, items: {water: 2} },
+        post :create, params: { survivor_id: survivor_1.id, trade: {
+          offer: {items: {water: 2} },
           for:  {survivor_id: survivor_2.id, items: {medication: 4}}
-            } }
+        } }
       end
 
       it { expect(response).to have_http_status(:created) }
@@ -45,10 +45,10 @@ RSpec.describe Api::TradesController, type: :controller do
         create_items( survivor_1, inventory_1 )
         create_items( survivor_2, inventory_2 )
 
-        post :create, params: { trade: {
-          offer: {survivor_id: survivor_1.id, items: {water: 2} },
+        post :create, params: { survivor_id: survivor_1.id, trade: {
+          offer: {items: {water: 2} },
           for:  {survivor_id: survivor_2.id, items: {medication: 2}}
-            } }
+        } }
       end
 
       it { expect(response).to have_http_status :unprocessable_entity }
