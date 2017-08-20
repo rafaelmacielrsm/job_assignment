@@ -1,7 +1,7 @@
 # This is PORO class that deals with the trading logic.
 # this approach follows namespacing suggestion as in the blog article:
 # http://vrybas.github.io/blog/2014/08/15/a-way-to-organize-poros-in-rails/
-# But many different approach would work as well, like 'UseCase' or 'Services'
+# But many different approaches would work as well, like 'UseCase' or 'Services'
 class Api::TradesController
   class Trading
     attr_accessor :errors, :offer, :for
@@ -45,7 +45,7 @@ class Api::TradesController
       end
     end
 
-    #.to_a validate_survivors
+    #validate_survivors
     # Call all methods to ensure the integrity of the info used in the trading
     def validate_survivors
       not(same_survivor? or invalid_survivors?) ? true : false
@@ -54,7 +54,7 @@ class Api::TradesController
     # validate_items
     # Call all methods to ensure the integrity of the info used in the trading
     def validate_items
-      not(empty_item_list? or has_invalid_items? or
+      not(empty_item_list? or has_invalid_items? ||
         has_different_point_values?) ? true : false
     end
 

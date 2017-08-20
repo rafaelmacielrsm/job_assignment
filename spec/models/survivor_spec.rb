@@ -10,6 +10,8 @@ RSpec.describe Survivor, type: :model do
   it { expect( subject ).to respond_to(:latitude) }
   it { expect( subject ).to respond_to(:items) }
   it { expect( subject ).to respond_to(:inventory) }
+  it { expect( Survivor ).to respond_to(:infected_survivors) }
+  it { expect( Survivor ).to respond_to(:non_infected_survivors) }
 
   describe 'validations' do
     it{ expect(subject).to validate_presence_of :name }
