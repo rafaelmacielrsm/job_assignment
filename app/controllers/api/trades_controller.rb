@@ -11,6 +11,7 @@ class Api::TradesController < ApplicationController
     end
   end
 
+  private
   def trade_params
     trading_params = params.require(:trade).permit(offer: {}, for: {})
     trading_params[:offer].merge!(survivor_id: params[:survivor_id])

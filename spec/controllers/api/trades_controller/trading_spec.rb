@@ -47,6 +47,20 @@ RSpec.describe Api::TradesController::Trading do
         expect(trading.errors.to_s).to include("Survivor does not exist")
       end
     end
+
+    context 'when one of the survivor is flagged as infected' do
+      before{ survivor_2.update_attributes(infected: true) }
+
+      let!(:params) {
+        build_trade_hash(survivor_1.id + 9, {}, survivor_2.id, {}) }
+
+      it { expect(trading.validate_survivors).to be false }
+
+      it "should add entries in the errors hash" do
+        trading.validate_survivors
+        expect(trading.errors.to_s).to include("Survivor does not exist")
+      end
+    end
   end
 
   describe '#validate_items' do

@@ -1,11 +1,9 @@
+# This is PORO class that deals with the trading logic.
+# this approach follows namespacing suggestion as in the blog article:
+# http://vrybas.github.io/blog/2014/08/15/a-way-to-organize-poros-in-rails/
+# But many different approach would work as well, like 'UseCase' or 'Services'
 class Api::TradesController
-  # This class deals with the trading logic
-
-  class Trading < ActiveModelSerializers::Model
-    # alias :read_attribute_for_serialization :send
-    # def self.model_name
-    #   @_model_name ||= ActiveModel::Name.new(self)
-    # end
+  class Trading
     attr_accessor :errors, :offer, :for
 
     # initialize
@@ -81,12 +79,12 @@ class Api::TradesController
     # invalid_survivors?
     # Ensure that every part involved in the trading process does exist
     def invalid_survivors?
-      unless Survivor.where(id: @offer[:survivor_id]).exists?
+      unless Survivor.non_infected_survivors.where(id: @offer[:survivor_id]).exists?
         add_error(:offer, :survivor_id, "Survivor does not exist")
         error = true
       end
 
-      unless Survivor.where(id: @for[:survivor_id]).exists?
+      unless Survivor.non_infected_survivors.where(id: @for[:survivor_id]).exists?
         add_error(:for, :survivor_id, "Survivor does not exist")
         error = true
       end
