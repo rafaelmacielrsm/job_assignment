@@ -25,11 +25,13 @@ class Item < ApplicationRecord
   # average per item
   def self.items_average_for_non_infected_survivors
     non_infected = Survivor.non_infected_survivors.count.to_f
-
-    return nil if non_infected == 0
-
-    self.total_per_item_depending_on_status.map {
-      |e| [e.item_name, (e.sum/non_infected).round(2)] }.to_h
+    # return a hash with with zero for every item if there are no non-infected
+    if non_infected == 0
+      Inventory.items_and_values.map { |k,v| [k, 0] }.to_h
+    else
+      self.total_per_item_depending_on_status.map {
+        |e| [e.item_name, (e.sum/non_infected).round(2)] }.to_h
+    end
   end
 
   # This class method gether the items for all survivor flagged as infected then

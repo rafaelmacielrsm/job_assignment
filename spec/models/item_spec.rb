@@ -24,24 +24,33 @@ RSpec.describe Item, type: :model do
   end
 
   describe '.items_average_for_non_infected_survivors' do
-    let(:survivor_1) { FactoryGirl.create :survivor }
-    let(:survivor_2) { FactoryGirl.create :survivor }
-    let(:inventory_1) {{water: 3, food: 4, medication: 5, ammunition: 6}}
-    let(:inventory_2) {{water: 1, food: 2, medication: 3, ammunition: 4}}
+    context 'when valid survivors and inventories exist' do
+      let(:survivor_1) { FactoryGirl.create :survivor }
+      let(:survivor_2) { FactoryGirl.create :survivor }
+      let(:inventory_1) {{water: 3, food: 4, medication: 5, ammunition: 6}}
+      let(:inventory_2) {{water: 1, food: 2, medication: 3, ammunition: 4}}
 
-    before do
-      create_items(survivor_1, inventory_1)
-      create_items(survivor_2, inventory_2)
-    end
+      before do
+        create_items(survivor_1, inventory_1)
+        create_items(survivor_2, inventory_2)
+      end
 
-    it 'should return the average for the non infected survivor' do
-      expect(Item.items_average_for_non_infected_survivors.values).
+      it 'should return the average for the non infected survivor' do
+        expect(Item.items_average_for_non_infected_survivors.values).
         to eq [2,3,4,5]
+      end
+
+      it 'should change the average when a survivor is flagged as infected' do
+        expect{ survivor_2.update_attributes(infected: true) }.to change{
+          Item.items_average_for_non_infected_survivors.values }.to([3,4,5,6])
+      end
     end
 
-    it 'should change the average when a survivor is flagged as infected' do
-      expect{ survivor_2.update_attributes(infected: true) }.to change{
-      Item.items_average_for_non_infected_survivors.values }.to([3,4,5,6])
+    context 'when there are no non-infected survivors' do
+      it 'should return zero for the average of every item' do
+        expect(Item.items_average_for_non_infected_survivors.values).
+        to eq [0,0,0,0]
+      end
     end
   end
 
