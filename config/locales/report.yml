@@ -1,0 +1,13 @@
+en:
+  report:
+    success:
+      infected: "This number represents the percentage of infected survivors
+      in relation to the total of registered survivors."
+      non_infected: "This number represents the percentage of non infected
+      survivors in relation to the total of registered survivors."
+      inventories_overview: "This report contains the average amount of each type
+      of item that are in the non-infected survivors' inventories"
+      resources_lost: "This report represents the values in points of all
+      resources that were lost because their owner are infected"
+    failure:
+      zero_survivor: No survivors registered yet
