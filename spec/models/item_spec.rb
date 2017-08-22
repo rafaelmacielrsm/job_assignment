@@ -55,22 +55,28 @@ RSpec.describe Item, type: :model do
   end
 
   describe '.points_lost_due_to_infection' do
-    let(:survivor_1) { FactoryGirl.create :survivor }
-    let(:survivor_2) { FactoryGirl.create :survivor }
-    let(:inventory_1) {{water: 3, food: 4, medication: 5, ammunition: 6}}
-    let(:inventory_2) {{water: 1, food: 2, medication: 3, ammunition: 4}}
+    context 'when there are infected survivors' do
+      let(:survivor_1) { FactoryGirl.create :survivor }
+      let(:survivor_2) { FactoryGirl.create :survivor }
+      let(:inventory_1) {{water: 3, food: 4, medication: 5, ammunition: 6}}
+      let(:inventory_2) {{water: 1, food: 2, medication: 3, ammunition: 4}}
 
-    before do
-      create_items(survivor_1, inventory_1)
-      create_items(survivor_2, inventory_2)
-      survivor_2.update_attributes(infected: true)
+      before do
+        create_items(survivor_1, inventory_1)
+        create_items(survivor_2, inventory_2)
+        survivor_2.update_attributes(infected: true)
+      end
+
+      it { expect(Item.points_lost_due_to_infection).to eq(20) }
+
+      it 'should change the points lost when a survivor is flagged as infected' do
+        expect{ survivor_1.update_attributes(infected: true) }.to change{
+          Item.points_lost_due_to_infection }.from(20).to(60)
+      end
     end
 
-    it { expect(Item.points_lost_due_to_infection).to eq(20) }
-
-    it 'should change the points lost when a survivor is flagged as infected' do
-      expect{ survivor_1.update_attributes(infected: true) }.to change{
-        Item.points_lost_due_to_infection }.from(20).to(60)
+    context 'when there are no infected survivors' do
+      it { expect(Item.points_lost_due_to_infection).to eq(0) }
     end
   end
 end

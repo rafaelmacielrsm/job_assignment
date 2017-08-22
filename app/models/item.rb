@@ -34,10 +34,13 @@ class Item < ApplicationRecord
     end
   end
 
-  # This class method gether the items for all survivor flagged as infected then
+  # This class method gather the items for all survivor flagged as infected then
   # Evaluate the total point value for every type of item.
   def self.points_lost_due_to_infection
-  Inventory.evaluate_items(self.total_per_item_depending_on_status(
-    is_infected = true).map {|e| [e.item_name, e.sum] }.to_h)
+    item_list = self.total_per_item_depending_on_status( is_infected = true )
+
+    return 0 if item_list.length == 0
+
+    Inventory.evaluate_items( item_list.map {|e| [e.item_name, e.sum] }.to_h )
   end
 end
