@@ -34,7 +34,7 @@ http://api.lvh.me:3000/
 ##### URL Params `None`
 
 ##### Data Params
-```json
+```
 {
   "survivor": {
 		"name": [String],
@@ -141,7 +141,7 @@ Decimal¹: Must use a .(dot) as decimal mark
   `id - [integer]`
 
 ##### Data Params
-```json
+```
 {
   "survivor": {
 		"latitude": [Decimal¹ number between -90 and 90],
@@ -221,7 +221,7 @@ null
   `survivor_id - [integer]`
 
 ##### Data Params
-```json
+```
 {
 	"infection_report": {
 		"infected_id":  [integer]
@@ -318,7 +318,7 @@ null
   `survivor_id - [integer]`
 
 ##### Data Params
-```json
+```
 {
 	"trade":
     {
