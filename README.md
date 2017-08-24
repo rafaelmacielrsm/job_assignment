@@ -36,39 +36,40 @@ http://api.lvh.me:3000/
 ##### Data Params
 ```
 {
-  "survivor": {
-		"name": <String>,
-		"age": [Number greater or equal to zero and Integer],
-		"gender": [String],
-		"latitude": [Decimal¹ number between -90 and 90],
-    "longitude": [Decimal¹ number between -180 and 180],
-    "inventory": {
-				"water": [Integer greater or equal to 0],
-				"food": [Integer greater or equal to 0],
-				"medication": [Integer greater or equal to 0],
-				"ammunition": [Integer greater or equal to 0]
-		}
-	}
+    "survivor": {
+    		"name": <String>,
+    		"age": <Number greater or equal to zero and Integer>,
+    		"gender": <String>,
+    		"latitude": <Decimal¹ number between -90 and 90>,
+        "longitude": <Decimal¹ number between -180 and 180>,
+        "inventory": {
+            "water": <Integer greater or equal to 0>,
+            "food": <Integer greater or equal to 0>,
+            "medication": <Integer greater or equal to 0>,
+            "ammunition": <Integer greater or equal to 0>
+        }
+    }
 }
 
 Decimal¹: Must use a .(dot) as decimal mark
+note: <type> means its a place holder and a brief description of what type of value its expecting
 ```
 **Complete example:**
 ```json
 {
-  "survivor": {
-		"name": "John Doe",
-		"age": 25,
-		"gender": "male",
-		"latitude":  -15.7996 ,
-    "longitude":  -47.8634 ,
-    "inventory": {
-				"water": 2,
-				"food": 3,
-				"medication": 2,
-				"ammunition": 3
-		}
-	}
+    "survivor": {
+        "name": "John Doe",
+        "age": 25,
+        "gender": "male",
+        "latitude":  -15.7996 ,
+        "longitude":  -47.8634 ,
+        "inventory": {
+            "water": 2,
+            "food": 3,
+            "medication": 2,
+            "ammunition": 3
+        }
+    }
 }
 ```
 
@@ -144,19 +145,20 @@ Decimal¹: Must use a .(dot) as decimal mark
 ```
 {
   "survivor": {
-		"latitude": [Decimal¹ number between -90 and 90],
-    "longitude": [Decimal¹ number between -180 and 180]
+		"latitude": <Decimal¹ number between -90 and 90>,
+    "longitude": <Decimal¹ number between -180 and 180>
 }
 
 Decimal¹: Must use a .(dot) as decimal mark
+note: <type> means its a placeholder and a brief description of what type of value its expecting
 ```
 **Complete example:**
 ```json
 {
-	"survivor": {
-		"latitude":  51.7996 ,
-    "longitude":  88.8634
-	}
+    "survivor": {
+        "latitude":  51.7996 ,
+        "longitude":  88.8634
+    }
 }
 ```
 
@@ -204,10 +206,7 @@ Decimal¹: Must use a .(dot) as decimal mark
 
 - **Error in the url parameters**
   - **Code:** `404 - Not Found`
-  - Body:
-```json
-null
-```
+- Body: `null`
 
 ------------
 ## 3. Report an Infected Survivor
@@ -224,18 +223,16 @@ null
 ```
 {
 	"infection_report": {
-		"infected_id":  [integer]
+		"infected_id":  <integer>
 	}
 }
 
-Decimal¹: Must use a .(dot) as decimal mark
+note: <type> means its a placeholder and a brief description of what type of value its expecting
 ```
 **Complete example:**
 ```json
 {
-	"infection_report": {
-		"infected_id":  1
-	}
+    "infection_report": { "infected_id":  1 }
 }
 ```
 
@@ -301,10 +298,7 @@ Decimal¹: Must use a .(dot) as decimal mark
 
 - **Error in the url parameters**
   - **Code:** `404 - Not Found`
-  - Body:
-```json
-null
-```
+  - Body: `null`
 
 ------------
 ## 4. Trades
@@ -320,52 +314,53 @@ null
 ##### Data Params
 ```
 {
-	"trade":
+    "trade":
     {
-      "offer":
+        "offer":
         {
-          "items":
+            "items":
             {
-              "water": [integer],
-              "food": [integer],
-              "medication": [integer],
-              "ammunition": [integer]
+                "water": <integer>,
+                "food": <integer>,
+                "medication": <integer>,
+                "ammunition": <integer>
             }
         },
-	    "for":
+        "for":
         {
-          "survivor_id": [integer],
-          "items":
+            "survivor_id": <integer>,
+            "items":
             {
-              "water": [integer],
-              "food": [integer],
-              "medication": [integer],
-              "ammunition": [integer]
+                "water": <integer>,
+                "food": <integer>,
+                "medication": <integer>,
+                "ammunition": <integer>
             }
         }
     }
 }
+note: <type> means its a placeholder and a brief description of what type of value its expecting
 ```
 **Complete example:**
 ```json
 {
-	"trade":
+    "trade":
     {
-      "offer":
+        "offer":
         {
-          "items":
+            "items":
             {
-              "water": 1,
-              "food": 1,
-              "medication": 1
+                "water": 1,
+                "food": 1,
+                "medication": 1
             }
         },
-	    "for":
+        "for":
         {
-          "survivor_id": 1,
-          "items":
+            "survivor_id": 1,
+            "items":
             {
-              "ammunition": 9
+                "ammunition": 9
             }
         }
     }
@@ -490,10 +485,7 @@ null
 
 - **Error in the url parameters**
   - **Code:** `404 - Not Found`
-  - Body:
-```json
-null
-```
+  - Body: `null`
 
 ------------
 ## 5. System Reports
