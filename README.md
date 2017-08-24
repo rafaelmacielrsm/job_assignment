@@ -37,10 +37,10 @@ http://api.lvh.me:3000/
 ```
 {
     "survivor": {
-    		"name": <String>,
-    		"age": <Number greater or equal to zero and Integer>,
-    		"gender": <String>,
-    		"latitude": <Decimal¹ number between -90 and 90>,
+        "name": <String>,
+        "age": <Number greater or equal to zero and Integer>,
+        "gender": <String>,
+        "latitude": <Decimal¹ number between -90 and 90>,
         "longitude": <Decimal¹ number between -180 and 180>,
         "inventory": {
             "water": <Integer greater or equal to 0>,
@@ -144,13 +144,14 @@ note: <type> means it is a placeholder with a brief description of what type of 
 ##### Data Params
 ```
 {
-  "survivor": {
-		"latitude": <Decimal¹ number between -90 and 90>,
-    "longitude": <Decimal¹ number between -180 and 180>
+    "survivor": {
+        "latitude": <Decimal¹ number between -90 and 90>,
+        "longitude": <Decimal¹ number between -180 and 180>
+    }
 }
 
 Decimal¹: Must use a .(dot) as decimal mark
-note: <type> means its a placeholder and a brief description of what type of value its expecting
+note: <type> means it is a placeholder with a brief description of what type of value it expects
 ```
 **Complete example:**
 ```json
@@ -222,12 +223,10 @@ note: <type> means its a placeholder and a brief description of what type of val
 ##### Data Params
 ```
 {
-	"infection_report": {
-		"infected_id":  <integer>
-	}
+	"infection_report": { "infected_id":  <integer> }
 }
 
-note: <type> means its a placeholder and a brief description of what type of value its expecting
+note: <type> means it is a placeholder with a brief description of what type of value it expects
 ```
 **Complete example:**
 ```json
@@ -339,7 +338,7 @@ note: <type> means its a placeholder and a brief description of what type of val
         }
     }
 }
-note: <type> means its a placeholder and a brief description of what type of value its expecting
+note: <type> means it is a placeholder with a brief description of what type of value it expects
 ```
 **Complete example:**
 ```json
