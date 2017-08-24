@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   validates :item_id, presence: true
   validates :quantity,
     presence: true,
-    numericality: { greater_than_or_equal_to: 0 }
+    numericality: { greater_than_or_equal_to: 0, only_integer: true }
 
   # this scope return an array containing the sum of quantity of items of all
   # survivor depending on the arg provided

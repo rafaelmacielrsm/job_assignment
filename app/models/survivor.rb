@@ -1,24 +1,43 @@
 class Survivor < ApplicationRecord
+  # Associations
+  has_many :items
+  # accepts_nested_attributes_for :items
+  has_many :submitted_reports, class_name: 'InfectionReport',
+  foreign_key: 'survivor_id', dependent: :destroy
+  has_many :reported_survivors,
+  through: :submitted_reports, source: :reported_survivor
+
+  has_many :received_reports, class_name: 'InfectionReport',
+  foreign_key: "infected_id", dependent: :destroy
+  has_many :reported_by, through: :received_reports, source: :survivor
+
   # Validations
   validates :name, presence: true
-  validates :age, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validates :age, presence: true, numericality: {greater_than_or_equal_to: 0,
+    only_integer: true}
   validates :gender, presence: true
   validates :latitude, presence: true,
     numericality: {greater_than_or_equal_to: -90, less_than_or_equal_to: 90}
   validates :longitude, presence: true,
     numericality: {greater_than_or_equal_to: -180, less_than_or_equal_to: 180}
 
-  # Associations
-  has_many :items
+  include ActiveModel::Validations
+   validates_with InventoryValidator, on: :create
+  # #TODO: Create a custom validator for this logic
+  # validate :items, on: :create do |survivor|
+  #   items_errors = []
+  #   survivor.items.each do |item|
+  #     next if item.valid?
+  #     item.errors.full_messages.each do |msg|
+  #       items_errors << [item.item_name.to_sym, "#{msg}"]
+  #     end
+  #   end
+  #   unless errors[:items].empty?
+  #     errors.delete(:items)
+  #     errors.add(:items, items_errors.to_h)
+  #   end
+  # end
 
-  has_many :submitted_reports, class_name: 'InfectionReport',
-    foreign_key: 'survivor_id', dependent: :destroy
-  has_many :reported_survivors,
-    through: :submitted_reports, source: :reported_survivor
-
-  has_many :received_reports, class_name: 'InfectionReport',
-    foreign_key: "infected_id", dependent: :destroy
-  has_many :reported_by, through: :received_reports, source: :survivor
 
   attr_accessor :inventory
 
