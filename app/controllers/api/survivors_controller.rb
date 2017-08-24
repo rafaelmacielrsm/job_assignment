@@ -1,5 +1,5 @@
 class Api::SurvivorsController < ApplicationController
-  # POST api.<domain_name>/survivor
+  # POST api.<domain_name>/survivors
   def create
     survivor = Survivor.new(survivor_params)
     inventory = params[:survivor][:inventory] || {}
@@ -15,7 +15,7 @@ class Api::SurvivorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT api.<domain_name>/survivor/:id
+  # PATCH/PUT api.<domain_name>/survivors/:id
   def update
     survivor = Survivor.find_by_id(params[:id])
 

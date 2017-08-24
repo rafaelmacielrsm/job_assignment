@@ -1,5 +1,8 @@
 class Api::SurvivorsController
   # This class manages the inventory list logic
+  # this approach follows namespacing suggestion as in the blog article:
+  # http://vrybas.github.io/blog/2014/08/15/a-way-to-organize-poros-in-rails/
+  # But many different approaches would work as well, like 'UseCase' or 'Services'
   class InventoryList
     # build_inventory method
     # => Encapsulates the inventory building process with the received parameter

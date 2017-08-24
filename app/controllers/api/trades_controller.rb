@@ -1,5 +1,5 @@
 class Api::TradesController < ApplicationController
-  # POST api.<domain_name>/survivor/:survivor_id/trade
+  # POST api.<domain_name>/survivors/:survivor_id/trade
   def create
     trading_offer = Trading.new(trade_params.to_h)
     if trading_offer.valid?
