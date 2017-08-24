@@ -37,7 +37,7 @@ http://api.lvh.me:3000/
 ```json
 {
   "survivor": {
-		"name": [String],
+		"name": <String>,
 		"age": [Number greater or equal to zero and Integer],
 		"gender": [String],
 		"latitude": [Decimal¹ number between -90 and 90],
