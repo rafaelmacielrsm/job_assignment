@@ -52,7 +52,7 @@ http://api.lvh.me:3000/
 }
 
 Decimal¹: Must use a .(dot) as decimal mark
-note: <type> means its a place holder and a brief description of what type of value its expecting
+note: <type> means it is a placeholder with a brief description of what type of value it expects
 ```
 **Complete example:**
 ```json
