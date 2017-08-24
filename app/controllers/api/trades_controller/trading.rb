@@ -1,4 +1,4 @@
-# This is PORO class that deals with the trading logic.
+# This is a PORO class that deals with the trading logic.
 # this approach follows namespacing suggestion as in the blog article:
 # http://vrybas.github.io/blog/2014/08/15/a-way-to-organize-poros-in-rails/
 # But many different approaches would work as well, like 'UseCase' or 'Services'
@@ -24,7 +24,7 @@ class Api::TradesController
     end
 
     # execute_trade!
-    # Does the transfer inside a transaction
+    # Does the items transfer inside a transaction
     def execute_trade!
       offer_inventory = @offer[:records].map{ |e| [e.item_name.to_sym, e]}.to_h
       for_inventory = @for[:records].map{ |e| [e.item_name.to_sym, e]}.to_h
@@ -68,7 +68,7 @@ class Api::TradesController
     # same_survivor?
     # Ensure that both 'offer' and 'for' aren't the same survivor
     def same_survivor?
-      if @offer[:survivor_id] == @for[:survivor_id]
+      if @offer[:survivor_id].to_i == @for[:survivor_id].to_i
         add_error(:for, :survivor_id, "not allowed to trade with self")
         return true
       end
@@ -147,7 +147,7 @@ class Api::TradesController
         if quantity > max_avaliable_quantity[item.to_sym]
           is_valid = false
           add_error(:offer, :items, {item.to_sym =>
-            "Not enough items, only #{max_avaliable_quantity[item]} available"})
+            "Not enough items, only #{max_avaliable_quantity[item.to_sym]} available"})
         end
       end
 
@@ -158,7 +158,7 @@ class Api::TradesController
         if quantity > max_avaliable_quantity[item.to_sym]
           is_valid = false
           add_error(:for, :items, {item.to_sym =>
-            "Not enough items, only #{max_avaliable_quantity[item]} available"})
+            "Not enough items, only #{max_avaliable_quantity[item.to_sym]} available"})
         end
       end
       is_valid

@@ -32,11 +32,11 @@ RSpec.describe Api::TradesController, type: :controller do
       end
 
       it "should change the items quantity based on the trade" do
-        expect(survivor_1.items.pluck(:quantity)).to match_array([1,2,7,2])
+        expect(survivor_1.items.reload.pluck(:quantity)).to match_array([1,2,7,2])
       end
 
       it "should change the items quantity for the other survivor" do
-        expect(survivor_2.items.pluck(:quantity)).to match_array([5,9,3,3])
+        expect(survivor_2.items.reload.pluck(:quantity)).to match_array([5,9,3,3])
       end
     end
 
